@@ -9,25 +9,19 @@
       ]
     }
   ]
-  '.tree-view.multi-select .file': [
-    {
-      'label': 'MavensMate'
-      'submenu': [
-        { 'label': 'Delete Files From Server', 'command': 'mavensmate:delete-file-from-server' }
-        { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-selected-metadata' }
-        { 'label': 'Compile Files', 'command': 'mavensmate:compile-selected-metadata' }
-      ]
-    }
-  ]
-  '.tree-view .directory .header': [
+  # Add menu items for the project's root directory
+  '[is=tree-view-directory].project-root .header': [
     {
       'label': 'MavensMate'
       'submenu': [
         { 'label': 'Delete From Server', 'command': 'mavensmate:delete-file-from-server' }
+        { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-selected-metadata' }
       ]
     }
   ]
-  '.tree-view .file, .atom-pane .item-views': [
+  # Top level directories
+  '[is=tree-view-directory].list-nested-item .name,
+    [is=tree-view-directory] .file, .atom-pane .item-views': [
     {
       'label': 'MavensMate'
       'submenu': [
@@ -37,7 +31,8 @@
       ]
     }
   ]
-  '.tree-view:not(.multi-select) .file span[data-name*=".resource"]': [
+  # Static resources
+  '[is=tree-view-directory]:not(.multi-select) .file span[data-name*=".resource"]': [
     {
       'label': 'MavensMate'
       'submenu': [
@@ -45,7 +40,20 @@
       ]
     }
   ]
-  '.tree-view:not(.multi-select) .directory span[data-path*="resource-bundles"]': [
+  # Classes, pages, and triggers
+  '[is=tree-view-directory]:not(.multi-select) .file span[data-name*=".cls"],
+    [is=tree-view-directory]:not(.multi-select) .file span[data-name*=".page"],
+      [is=tree-view-directory]:not(.multi-select) .file span[data-name*=".trigger"]': [
+    {
+      'label': 'MavensMate'
+      'submenu': [
+        { 'label': 'Compile Selected File', 'command': 'mavensmate:compile-selected-metadata' }
+        { 'label': 'Refresh From Server', 'command': 'mavensmate:compile-selected-metadata' }
+      ]
+    }
+  ]
+  # Resource bundles
+  '[is=tree-view-directory]:not(.multi-select) .directory span[data-path*="resource-bundles"]': [
     {
       'label': 'MavensMate'
       'submenu': [
