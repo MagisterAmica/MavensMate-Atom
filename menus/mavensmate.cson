@@ -48,7 +48,7 @@
       'label': 'MavensMate'
       'submenu': [
         { 'label': 'Compile Selected File', 'command': 'mavensmate:compile-selected-metadata' }
-        { 'label': 'Refresh From Server', 'command': 'mavensmate:compile-selected-metadata' }
+        { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-selected-metadata' }
       ]
     }
   ]
