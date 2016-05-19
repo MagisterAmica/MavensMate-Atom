@@ -36,11 +36,11 @@ module.exports =
 
     constructor: ->
       console.log 'Creating new instance of MavensMate plugin...'
-      
+
       # temporary hack to workaround cert issues introduced by chrome 39
       # (https://github.com/joeferraro/MavensMate-Atom/issues/129#issuecomment-69847533)
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-      
+
       # initiate mavensmate for this atom workspace
       @init()
 
@@ -60,16 +60,30 @@ module.exports =
 
       # if this window is an atom project AND a mavensmate project, initialize the project
       if atom.project? and atom.project.getPaths().length > 0 and util.hasMavensMateProjectStructure()
-        self.mavensmateAdapter.checkStatus()
-          .then(() ->
-            # TODO
-            if not atom.workspace.mavensMateProjectInitialized
-              self.initializeProject()
-          )
-          .catch((err) ->
-            self.panel.addPanelViewItem(err, 'danger')
-            self.panel.toggle()
-          )
+        maxTries = 10
+        connectionAttempt = 0
+        pollingMessage = "Unable to connect to the MavensMate App. Please ensure that it is running. \
+        \nAttempt {0} of {1}"
+        checkStatus = ->
+          self.mavensmateAdapter.checkStatus()
+            .then(() ->
+              # TODO
+              if not atom.workspace.mavensMateProjectInitialized
+                self.initializeProject()
+            )
+            .catch((err) ->
+              console.log("ERR", err)
+              if connectionAttempt < maxTries
+                connectionAttempt++
+                message = pollingMessage.replace("{0}", connectionAttempt).replace("{1}", maxTries)
+                self.panel.addPanelViewItem(message, 'warning')
+                self.panel.expand()
+                setTimeout(checkStatus, 5000)
+              else
+                self.panel.addPanelViewItem(err, 'danger')
+                self.panel.expand()
+        )
+        checkStatus()
 
       atom.project.onDidChangePaths => @onProjectPathChanged()
 
@@ -105,12 +119,12 @@ module.exports =
       # TODO: use atom.project.getPaths()
       atom.project.mavensMateErrors = {}
       atom.project.mavensMateCheckpointCount = 0
-      
+
       # instantiate mavensmate panel, show it
       self.panel.toggle()
 
       console.log 'initializing project --> '+atom.project.getPaths()
-            
+
       # attach MavensMate views/handlers to each present and future workspace editor views
       atom.workspace.observeTextEditors (editor) ->
         self.handleBufferEvents editor
@@ -124,7 +138,7 @@ module.exports =
 
       # initiate errors view
       self.createErrorsView(util.uris.errorsView)
-      
+
       atom.workspace.addOpener (uri) ->
         self.errorsView if uri is util.uris.errorsView
       atom.deserializers.add(self.errorsDeserializer)
@@ -209,7 +223,7 @@ module.exports =
       # attach commands to workspace based on commands.json
       for c in util.getCommands('project')
         resolvedName = 'mavensmate:' + c.atomName
-        
+
         atom.commands.add 'atom-workspace', resolvedName, (options) ->
           commandName = options.type.split(':').pop()
           cmd = util.getCommandByAtomName(commandName)
@@ -222,7 +236,7 @@ module.exports =
 
           payload = {}
           payload.args = {}
-          
+
           if 'ui' of cmd
             payload.args.ui = cmd.ui
           if 'paths' of cmd
@@ -238,7 +252,7 @@ module.exports =
                   payload.classes = [util.activeFileBaseName().split('.')[0]]
           if 'payloadMetadata' of cmd
             payload.args.type = cmd.payloadMetadata
-          
+
           if Object.keys(payload).length != 0
             params.payload = payload
 

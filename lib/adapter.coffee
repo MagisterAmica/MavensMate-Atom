@@ -8,11 +8,14 @@ request       = require 'request'
 
 class CoreAdapter
 
-  couldNotContactMessage: 'Error: Could not contact the local MavensMate server. Please ensure MavensMate-app is installed and running (https://github.com/joeferraro/mavensmate-app/releases). MavensMate will not run properly until resolved.\n\nMore Information: This version of MavensMate for Atom requires MavensMate-app. MavensMate-app is a new executable that makes it easy to use MavensMate from Sublime Text, Atom, Visual Studio Code, etc.'
+  couldNotContactMessage: 'Error: Could not contact the local MavensMate server. Please ensure MavensMate-app \
+  is installed and running (https://github.com/joeferraro/mavensmate-app/releases). MavensMate will not run properly \
+  until resolved.\n\nMore Information: This version of MavensMate for Atom requires MavensMate-app. MavensMate-app is a \
+  new executable that makes it easy to use MavensMate from Sublime Text, Atom, Visual Studio Code, etc.'
 
   checkStatus: () ->
     self = @
-    
+
     new Promise((resolve, reject) ->
       request
         .get("http://localhost:#{atom.config.get('MavensMate-Atom').mm_app_server_port}/app/home/index")
@@ -33,10 +36,10 @@ class CoreAdapter
   executeCommand: (params) ->
     console.log 'executing command via core adapter: '
     console.log params
-    
+
     payload = params.payload
     promiseId = params.promiseId
-      
+
     # command = if args.operation then args.operation else payload.command
     command = params.command
 
@@ -81,7 +84,7 @@ class CoreAdapter
             requestId = statusResponse.id
             requestDone = false
             requestResponse = null
-              
+
             console.log 'Need to poll local MavensMate server for response ...'
 
             poll = ->
@@ -92,7 +95,7 @@ class CoreAdapter
                 url: "http://localhost:#{atom.config.get('MavensMate-Atom').mm_app_server_port}/status?id=#{requestId}"
                 headers:
                   'MavensMate-Editor-Agent': 'atom'
-            
+
               request(statusOption, (err, response, body) ->
                 if err
                   err.promiseId = promiseId
@@ -111,7 +114,7 @@ class CoreAdapter
                     resolve res
               )
 
-            poll()   
+            poll()
       )
     )
 
