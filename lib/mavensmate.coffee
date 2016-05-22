@@ -238,6 +238,8 @@ module.exports =
                   payload.classes = [util.activeFileBaseName().split('.')[0]]
           if 'payloadMetadata' of cmd
             payload.args.type = cmd.payloadMetadata
+          if 'force' of cmd
+            payload.force = true
 
           if Object.keys(payload).length != 0
             params.payload = payload
