@@ -109,6 +109,10 @@
             'label': 'Run Tests For This Apex Class',
             'command': 'mavensmate:run-tests'
           }
+          {
+            'label': 'Run Tests For This Apex Class\' Test Class',
+            'command': 'mavensmate:run-tests-for-this-class'
+          }
         ]
       }
       {
