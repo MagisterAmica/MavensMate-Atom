@@ -3,7 +3,7 @@
   'ctrl-alt-n': 'mavensmate:new-project'
   'ctrl-alt-/': 'mavensmate:toggle-panel'
 'atom-text-editor':
-  'ctrl-alt-s': 'mavensmate:compile'
+  'ctrl-alt-s': 'mavensmate:compile-file'
   'ctrl-alt-p': 'mavensmate:compile-project'
   'ctrl-alt-x': 'mavensmate:run-apex-script'
   'ctrl-alt-a': 'mavensmate:run-tests'
