@@ -60,16 +60,8 @@ module.exports =
 
       # if this window is an atom project AND a mavensmate project, initialize the project
       if atom.project? and atom.project.getPaths().length > 0 and util.hasMavensMateProjectStructure()
-        self.mavensmateAdapter.checkStatus()
-          .then(() ->
-            # TODO
-            if not atom.workspace.mavensMateProjectInitialized
-              self.initializeProject()
-          )
-          .catch((err) ->
-            self.panel.addPanelViewItem(err, 'danger')
-            self.panel.toggle()
-          )
+        self.panel.toggle()
+        self.pollForAppCnnection()
 
       atom.project.onDidChangePaths => @onProjectPathChanged()
 
@@ -77,6 +69,26 @@ module.exports =
       setTimeout(->
         @mavensmateStatusBar = new StatusBarView(self.panel)
       , 1000)
+
+    pollForAppCnnection: ->
+      connectionAttempt = 0
+      pollingMessage = "Unable to connect to the MavensMate App. Please ensure that it is running."
+      checkStatus = ->
+        self.mavensmateAdapter.checkStatus()
+          .then(() ->
+            # TODO
+            if not atom.workspace.mavensMateProjectInitialized
+              self.initializeProject()
+          )
+          .catch((err) ->
+            connectionAttempt++
+            console.log("Polling for connection to MavensMate App. Attempt #{connectionAttempt}")
+            unless connectionAttempt > 1
+              self.panel.addPanelViewItem(pollingMessage, 'warning')
+              self.panel.expand()
+            setTimeout(checkStatus, 5000)
+      )
+      checkStatus()
 
     # todo: expose settings retrieval from core so we can display this list
     openProject: ->
@@ -169,6 +181,7 @@ module.exports =
 
       # add success message!
       self.panel.addPanelViewItem('MavensMate initialized successfully. Happy coding!', 'success')
+      self.panel.expand()
 
       # done
       atom.workspace.mavensMateProjectInitialized ?= true
