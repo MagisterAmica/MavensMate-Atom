@@ -294,21 +294,16 @@ module.exports =
             editor.setGrammar(atom.grammars.grammarForScopeName('text.xml'))
       , 1000)
 
-    # watches active editors for events like save
-    handleBufferEvents: (editor) ->
-      self = @
+    handleSaveEvent: (editor) ->
       buffer = editor.getBuffer()
-      if buffer.file? and util.isMetadata(buffer.file.path) and atom.config.get('MavensMate-Atom').mm_compile_on_save
-        editor.onDidSave () ->
+      if buffer.file? and atom.config.get('MavensMate-Atom').mm_compile_on_save
 
-          # Check if the current file is within a resource bundle
-          resourceExp = /([a-zA-Z0-9\x00-\x7F\u0000-\u007F-_.\s\\\/\:])+(?:\.resource\\)/i
-          resourceBundle = buffer.file.path.match(resourceExp)
+        # Check if the current file is within a resource bundle
+        resourceExp = /([a-zA-Z0-9\x00-\x7F\u0000-\u007F-_.\s\\\/\:])+(?:\.resource\\)/i
+        resourceBundle = buffer.file.path.match(resourceExp)
 
-          # If so do nothing for now
-          if resourceBundle
-            return
-
+        if util.isInSrcPath(buffer.file.path) and util.isMetadata(buffer.file.path)
+          console.log("Not resource bundle")
           params =
             command: 'compile-metadata'
             commandDefinition:
@@ -327,6 +322,33 @@ module.exports =
               self.adapterResponseHandler(params, result)
             .catch (err) ->
               self.adapterResponseHandler(params, err)
+
+        else if resourceBundle
+          _path = buffer.file.path
+          bundlePath = _path.substring(0, _path.indexOf('.resource')) + ".resource"
+          params =
+            command: 'deploy-resource-bundle'
+            commandDefinition:
+              coreName: 'deploy-resource-bundle'
+              atomName: 'deploy-resource-bundle'
+              panelMessage: 'Deploying'
+              scope: 'project'
+            args:
+              pane: atom.workspace.getActivePane()
+              textEditor: atom.workspace.getActiveTextEditor()
+              buffer: buffer
+            payload:
+              paths: [bundlePath]
+          self.mavensmateAdapter.executeCommand(params)
+            .then (result) ->
+              self.adapterResponseHandler(params, result)
+            .catch (err) ->
+              self.adapterResponseHandler(params, err)
+
+    # watches active editors for events like save
+    handleBufferEvents: (editor) ->
+      self = @
+      editor.onDidSave () -> self.handleSaveEvent(editor)
 
     # Deactivate the package and destroy the mavensmate views.
     destroy: ->

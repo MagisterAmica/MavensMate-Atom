@@ -30,7 +30,7 @@ module.exports =
       return __.find(commands, {
         atomName: name
       })
-    
+
     # returns the active file path
     @activeFile: ->
       editor = atom.workspace.getActivePaneItem()
@@ -91,11 +91,17 @@ module.exports =
         return fs.existsSync(settingsPath)
       catch
         return false
-        
+
     @isMetadata: (filePath) ->
       console.log 'checking whether file is valid sfdc metadata: '+filePath
       apex_file_extensions = atom.config.get('MavensMate-Atom').mm_apex_file_extensions
       return (path.extname(filePath) in apex_file_extensions || path.basename(path.dirname(path.dirname(filePath))) == 'aura') and path.basename(path.dirname(filePath)) != 'config'
+
+    # Whether or not a file exists in the project's src directory
+    @isInSrcPath: (filepath) ->
+      src = fs.realpathSync(atom.project.getPaths() + "/src")
+      filepath = fs.realpathSync(filepath)
+      return filepath.indexOf(src) == 0
 
     # compile-related commands
     @compileCommands: ->
@@ -151,7 +157,7 @@ module.exports =
     # returns tree view
     @treeView: ->
       atom.packages.getActivePackage('tree-view').mainModule.treeView
-      
+
     @withoutExtension: (filePath) ->
       filePath.split(/[.]/).shift()
 
