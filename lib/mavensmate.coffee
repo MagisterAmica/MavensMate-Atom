@@ -236,6 +236,11 @@ module.exports =
               when 'activeBaseName'
                 if util.activeFile().indexOf('.cls') >= 0
                   payload.classes = [util.activeFileBaseName().split('.')[0]]
+              when 'activeBaseNameTest'
+                if util.activeFile().indexOf('Test.cls') >= 0
+                  payload.classes = [util.activeFileBaseName().split('.')[0]]
+                else if util.activeFile().indexOf('.cls') >= 0
+                  payload.classes = [util.activeFileBaseName().split('.')[0] + 'Test']
           if 'payloadMetadata' of cmd
             payload.args.type = cmd.payloadMetadata
 
