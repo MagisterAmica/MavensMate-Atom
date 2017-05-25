@@ -33,7 +33,8 @@
       'submenu': [
         { 'label': 'Delete Files From Server', 'command': 'mavensmate:delete-file-from-server' }
         { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-selected-metadata' }
-        { 'label': 'Compile Files', 'command': 'mavensmate:compile-selected-metadata' }
+        { 'label': 'Compile Files', 'command': 'mavensmate:compile-selected-metadata' },
+        { 'label': 'Force Compile Files', 'command': 'mavensmate:force-compile-file' }
       ]
     }
   ]

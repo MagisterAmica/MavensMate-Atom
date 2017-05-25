@@ -42,6 +42,20 @@
         "scope": "project"
     },
     {
+      "coreName": "compile-metadata",
+      "atomName": "force-compile-file",
+      "confirm": {
+        "message": "Force compile file?",
+        "detailedMessage": "This will skip all server checks and overwrite others changes",
+        "buttons": ["Yes", "No"]
+      },
+      "ui": true,
+      "paths": "selected",
+      "force": true,
+      "panelMessage": "Force compiling file",
+      "scope": "project"
+    },
+    {
         "atomName": "compile-metadata",
         "coreName": "compile-metadata",
         "paths": "active",
