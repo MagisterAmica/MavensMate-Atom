@@ -197,20 +197,20 @@
         "panelMessage": "Opening Apex unit test UI",
         "scope": "project"
     },
-	{
+    {
         "atomName": "run-tests",
         "coreName": "run-tests",
         "classes": "activeBaseName",
         "panelMessage": "Running Apex unit tests",
         "scope": "project"
     },
-  	{
-  		"atomName": "run-tests-for-this-class",
-  		"coreName": "run-tests",
-  		"classes": "activeBaseNameTest",
-  		"panelMessage": "Running Apex unit tests",
-  		"scope": "project"
-  	},
+    {
+        "atomName": "run-tests-for-this-class",
+        "coreName": "run-tests",
+        "classes": "activeBaseNameTest",
+        "panelMessage": "Running Apex unit tests",
+        "scope": "project"
+    },
     {
         "atomName": "deploy-to-server",
         "coreName": "deploy",
