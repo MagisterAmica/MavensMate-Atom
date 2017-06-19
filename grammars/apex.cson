@@ -487,11 +487,15 @@
   'constants-and-special-vars':
     'patterns': [
       {
-        'match': '\\b(true|false|null|select|from|where|limit|order by|like|in|not in|includes|excludes)\\b'
+        'match': '(?i)\\b(true|false|null)\\b'
         'name': 'constant.language.apex'
       }
       {
-        'match': '\\b(this|super)\\b'
+        'match': '(?i)\\b(select|from|where|and|limit|order by|like|in|not in|includes|excludes)\\b'
+        'name': 'soql.constant.language.apex'
+      }
+      {
+        'match': '(?i)\\b(this|super)\\b'
         'name': 'variable.language.apex'
       }
       {
