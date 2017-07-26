@@ -23,7 +23,6 @@ firstCharsEqual = (str1, str2) ->
 #
 # e.g. when user types "S", String, StringException, Site, Set, System, Sobject, etc. are showing in suggestions
 ApexProvider =
-  id: 'mavensmate-apexprovider'
   selector: '.source.apex'
   filterSuggestions: true
 
@@ -37,9 +36,9 @@ ApexProvider =
       words = fuzzaldrin.filter apexClasses, options.prefix
       for word in words
         suggestion =
-          prefix: options.prefix
-          word: word
-          label: 'Apex'
+          replacementPrefix: options.prefix
+          text: word
+          rightLabel: 'Apex'
         suggestions.push(suggestion)
     return suggestions
   
@@ -47,7 +46,6 @@ ApexProvider =
 #
 # e.g. when user types "<", list of vf tags is presented
 VisualforceTagProvider =
-  id: 'mavensmate-vfprovider'
   # selector: '.visualforce'
   vfTags: vf.tags
   vfDefs: vf.tagDefs
