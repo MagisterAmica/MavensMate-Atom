@@ -2,10 +2,10 @@
 path          = require 'path'
 emitter       = require('./emitter').pubsub
 remote        = require 'remote'
-BrowserWindow = remote.require('browser-window')
+BrowserWindow = remote.BrowserWindow
 
 class BrowserView extends ScrollView
-  
+
   constructor: (@params) ->
     super
     self = @
@@ -35,9 +35,9 @@ class BrowserView extends ScrollView
 
   @deserialize: (state) ->
     new BrowserView(state)
-      
+
   setLocation: (url) -> $(@webview).attr src: url
-    
+
   serialize: ->
     deserializer: 'BrowserView'
     version: 1
@@ -95,7 +95,7 @@ class IFrameView extends ScrollView
           if util.baseName(f) == self.page
             self.iframe.attr 'src', self.url
             break
-   
+
   @deserialize: (state) ->
     new IFrameView(state)
 
