@@ -6,7 +6,7 @@ pluralize   = require 'pluralize'
 emitter     = require('../emitter').pubsub
 
 class CommandParser
-  
+
   obj:
     message: null
     indicator: 'warning'
@@ -20,7 +20,7 @@ class CommandParser
   parse: ->
     console.log('CommandParser parsing ... -->')
     console.log @result
-    
+
     if __.isError(@result)
       @result.success = false
       @obj.message = @result.message
@@ -117,7 +117,7 @@ class CompileParser extends CommandParser
         compiledFile.fileNameWithoutExtension = fileNameWithoutExtension
         compiledFile.fileNameBase = fileNameBase
         filesCompiled[fileNameWithoutExtension] = compiledFile
-        atom.project.mavensMateErrors[filePath] = []
+        atom.project.mavensMateErrors[fileNameBase] = []
 
     for filePath, errors of atom.project.mavensMateErrors
       fileNameBase = util.baseName(filePath)
@@ -197,7 +197,7 @@ class CompileParser extends CommandParser
           else
             result.fileName = errorName
             result.filePath = errorName
-          
+
           # errorsByFilePath[result.fileName] ?= []
           # errorsByFilePath[result.fileName].push(result)
           panelMessages.push "#{result.fileName}: #{result.problem} (Line: #{result.lineNumber})"
@@ -210,8 +210,8 @@ class CompileParser extends CommandParser
 
     console.log 'ok'
     console.log @command
-    console.log compileResult.success
-    
+    console.log 'compileResult.success', compileResult.success
+
     # if the project compiled successfully, we can safely empty the error dictionary
     if @command == 'compile-project' and compileResult.success
       atom.project.mavensMateErrors = {}
@@ -225,15 +225,15 @@ class CompileParser extends CommandParser
         fileNameWithoutExtension = util.withoutExtension(fileNameBase)
         if atom.project.mavensMateErrors[fileNameWithoutExtension]?
           delete atom.project.mavensMateErrors[fileNameWithoutExtension]
-        atom.project.mavensMateErrors[filePath] = errors
-    
+        atom.project.mavensMateErrors[fileNameBase] = errors
+
     console.log 'panel messages after compile parsing: '
     console.log panelMessages
-    
+
     @obj.message = panelMessages.join('<br/>')
     if !@obj.message?
       throw new Error 'unable to parse compile result'
-    
+
     return @obj
 
 class CleanProjectParser extends CommandParser
@@ -253,27 +253,27 @@ class RefreshMetadataParser extends CommandParser
 class RunTestsParser extends CommandParser
 
   class TestResultView extends View
-    
+
     @content: (params) ->
       @div =>
         @span params.message
         @div outlet: 'results', class: 'mavensmate-test-result'
-          
+
     addTestResults: (result) ->
       console.log 'adding result for: '
       console.log result
       html = ''
-      
+
       passCounter = 0
       failedCounter = 0
-      
+
       for test in result.results
         if test.Outcome == "Fail"
           failedCounter++
         else
           passCounter++
 
-        
+
         clsName = 'Pass'
         if failedCounter > 0
           clsName = 'Fail'
@@ -281,7 +281,7 @@ class RunTestsParser extends CommandParser
       html += '<p class="class-name">'+result.ApexClass.Name
       html += ' | <span class="'+clsName+'">'+result.ExtendedStatus+' '+pluralize('test', result.results.length)+ ' passed</span>'
       html += '</p>'
-      
+
       for test in result.results
         html += '<p class="method-name"><span class="result '+test.Outcome+'">['+test.Outcome+']</span> '+test.MethodName+'</p>'
         if test.Outcome == 'Fail'
@@ -290,7 +290,7 @@ class RunTestsParser extends CommandParser
           html += '<br/>'
           html += test.StackTrace
           html += '</p>'
-      
+
       console.log html
 
       @results.append html
@@ -300,18 +300,18 @@ class RunTestsParser extends CommandParser
   parse: ->
     passCounter = 0
     failedCounter = 0
-    
-    message = 'Results:\n'      
-    
+
+    message = 'Results:\n'
+
     testResultView = new TestResultView(message:'> Results:')
     testKey = Object.keys(@result.result.testResults)[0]
     testResultsForThisClass = @result.result.testResults[testKey]
     testResultView.addTestResults(testResultsForThisClass)
     console.log testResultView
-    
+
     @obj.indicator = 'info'
     @obj.message = testResultView
-    
+
     return @obj
 
 class LoggingParser extends CommandParser
@@ -324,7 +324,7 @@ class LoggingParser extends CommandParser
       @obj.message = @result.result.message
 
     return @obj
- 
+
 parsers = {
   CommandParser: CommandParser,
   DeleteParser: DeleteParser,
@@ -359,7 +359,7 @@ getCommandParser = (command, params, result) ->
       return parsers[parserClassName]
 
 module.exports =
-  
+
   parse: (command, params, result) ->
     Parser = getCommandParser(command, params, result)
     console.log 'parser is: '
