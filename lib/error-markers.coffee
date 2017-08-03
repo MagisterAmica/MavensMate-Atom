@@ -27,9 +27,9 @@ class ErrorMarkers
         if atom.project.mavensMateErrors[@editor.getPath()]?
           errors = atom.project.mavensMateErrors[@editor.getPath()]
         else
-          currentFileNameWithoutExtension = util.withoutExtension(util.baseName(@editor.getPath()))
+          currentFileNameWithoutExtension = util.baseName(@editor.getPath())
           errors = atom.project.mavensMateErrors[currentFileNameWithoutExtension] ? []
-        
+
       @clearMarkers()
 
       if errors?
