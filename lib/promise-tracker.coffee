@@ -1,9 +1,9 @@
 _           = require 'underscore-plus'
-uuid        = require 'node-uuid'
+uuidv1        = require 'uuid/v1'
 emitter     = require('./emitter').pubsub
 
 class PromiseTracker
-  
+
   # object containing promises we're tracking
   # {
   #   'tracked-promise-uuid' : {
@@ -22,7 +22,7 @@ class PromiseTracker
   enqueuePromise: (operation) ->
     emitter.emit 'mavensmate:promise-enqueued'
 
-    promiseId = uuid.v1()
+    promiseId = uuidv1()
     promise = {
       id: promiseId,
       complete: false,
@@ -53,7 +53,7 @@ class PromiseTracker
       return p
     else
       @tracked[promiseId]
-    
+
   completePromise: (result) ->
     tracker.tracked[result.promiseId].result = result
     tracker.tracked[result.promiseId].complete = true

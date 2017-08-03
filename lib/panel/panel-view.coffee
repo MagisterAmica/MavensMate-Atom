@@ -4,7 +4,7 @@ emitter                 = require('../emitter').pubsub
 util                    = require '../util'
 moment                  = require 'moment'
 pluralize               = require 'pluralize'
-uuid                    = require 'node-uuid'
+uuidv1                  = require 'uuid/v1'
 PanelViewItem           = require './panel-view-item'
 
 # The status panel that shows the result of command execution, etc.
@@ -125,7 +125,7 @@ class PanelView extends View
         if self.panelDictionary[promiseId]
           promisePanelViewItem = self.panelDictionary[promiseId]
           promisePanelViewItem.update self, params, result
-        
+
           if promisePanelViewItem.command in util.compileCommands()
             emitter.emit 'mavensmate:compile-finished', params, promiseId
 
@@ -157,7 +157,7 @@ class PanelView extends View
 
     panelItem = new PanelViewItem() # initiate new panel item
     panelItem.initGenericMessage(message, status)
-    @panelDictionary[uuid.v1()] = panelItem # add panel to dictionary
+    @panelDictionary[uuidv1()] = panelItem # add panel to dictionary
     @myOutput.prepend panelItem # add panel item to panel
 
   # Update the mavensmate output view contents.
