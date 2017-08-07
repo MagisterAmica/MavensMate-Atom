@@ -1,14 +1,15 @@
 'context-menu':
-  # 'atom-text-editor': [
-  #   {
-  #     'label': 'MavensMate'
-  #     'submenu': [
-  #       { 'label': 'Delete From Server', 'command': 'mavensmate:delete-file-from-server' }
-  #       { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-file' }
-  #       { 'label': 'Compile', 'command': 'mavensmate:compile-file' }
-  #     ]
-  #   }
-  # ]
+  'atom-pane[data-active-item-name*=".cls"], atom-pane[data-active-item-name*=".trigger"], atom-pane[data-active-item-name*=".page"],
+  atom-pane[data-active-item-name*=".component"], atom-pane[data-active-item-path*="aura"]': [
+    {
+      'label': 'MavensMate'
+      'submenu': [
+        { 'label': 'Delete From Server', 'command': 'mavensmate:delete-file-from-server' }
+        { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-file' }
+        { 'label': 'Compile', 'command': 'mavensmate:compile-file' }
+      ]
+    }
+  ]
   # Add menu items for the project's root directory
   '[is=tree-view-directory].project-root .header': [
     {
