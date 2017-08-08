@@ -77,7 +77,8 @@ module.exports =
       else # command palette or right click in editor
         filePaths = [this.activeFile()]
       for filePath in filePaths
-        if this.extension(filePath) in apex_file_extensions
+        stat = fs.statSync filePath
+        if this.extension(filePath) in apex_file_extensions || stat.isDirectory()
           selectedFilePaths.push(filePath)
       return selectedFilePaths
 
