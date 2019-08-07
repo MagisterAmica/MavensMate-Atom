@@ -7,6 +7,7 @@
         { 'label': 'Delete From Server', 'command': 'mavensmate:delete-file-from-server' }
         { 'label': 'Refresh From Server', 'command': 'mavensmate:refresh-file' }
         { 'label': 'Compile', 'command': 'mavensmate:compile-file' }
+        { 'label': 'Force Compile', 'command': 'mavensmate:force-compile-file' }
       ]
     }
   ]
