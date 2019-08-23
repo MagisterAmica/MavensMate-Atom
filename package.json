@@ -43,13 +43,6 @@
     "underscore-plus": "1.x",
     "underscore.string": "2.3.x"
   },
-  "providedServices": {
-    "autocomplete.provider": {
-      "versions": {
-        "2.0.0": "provide"
-      }
-    }
-  },
   "devDependencies": {
     "temp": "latest",
     "bluebird": "latest"

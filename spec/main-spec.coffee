@@ -68,7 +68,6 @@ describe 'main.coffee', ->
       expect(config.mm_close_panel_delay).toBeDefined()
       expect(config.mm_apex_file_extensions).toBeDefined()
       expect(config.mm_app_server_port).toBeDefined()
-      expect(config.mm_autocomplete).toBeDefined()
 
     it 'should attach commands', ->
       expect(helper.hasCommand(workspaceElement, 'mavensmate:new-project')).toBeTruthy()
