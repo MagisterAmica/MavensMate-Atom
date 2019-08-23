@@ -285,10 +285,7 @@ repository:
       }
     ]
   "support-expression":
-    begin: '''
-      (?x)
-      (ApexPages|Database|DMLException|Exception|PageReference|Savepoint|SchedulableContext|Schema|SObject|System|Test)\\s* # supported apex namespaces
-    '''
+    begin: "(?i)(ApexPages|Database|DMLException|Exception|PageReference|Savepoint|SchedulableContext|Schema|SObject|System|Test)\\b" # supported apex namespaces
     beginCaptures:
       "1":
         name: "support.class.apex"
