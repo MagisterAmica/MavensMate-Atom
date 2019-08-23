@@ -452,7 +452,7 @@ repository:
     match: "(?<!\\.)\\b(with sharing|without sharing)\\b"
   "storage-modifier":
     name: "storage.modifier.apex"
-    match: "(?<!\\.)\\b(new|public|protected|private|abstract|virtual|override|global|static|final|transient)\\b"
+    match: "(?<!\\.)\\b(new|public|protected|private|abstract|virtual|override|global|static|final|transient|testmethod)\\b"
   "class-declaration":
     begin: "(?=\\bclass\\b)"
     end: "(?<=\\})"
