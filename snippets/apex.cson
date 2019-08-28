@@ -10,7 +10,7 @@
         'body': 'trigger ${1:TriggerName} on ${2:SObject} (${3:events}) {\n\tfor (${2:SObject} ${4:obj} : Trigger.new) {\n\t\t${5://bulkified code}\n\t}\n}'
     'test':
         'prefix': 'test'
-        'body': '@isTest\npublic class Test_${1:ClassToTest} {\n\n\t@testSetup\n\tstatic void setup() {\n\t\t// setup code here\n\t}\n\n\t@isTest\n\tstatic void test_${2:methodToTest} {\n\t\t$3\n\t}\n}'
+        'body': '@isTest\npublic class Test_${1:ClassToTest} {\n\n\t@testSetup\n\tstatic void setup() {\n\t\t// setup code here\n\t}\n\n\t@isTest\n\tstatic void test_${2:methodToTest}() {\n\t\t$3\n\t}\n}'
     'for':
         'prefix': 'for'
         'body': 'for (Integer i = 0; i < ${1:SObjectList}.size(); i++) {\n\t${2:SObject} obj = ${1:SObjectList}.get(i);\n}'
