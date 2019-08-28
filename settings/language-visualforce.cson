@@ -1,7 +1,10 @@
-'.visualforce.markup':
+'.text.visualforce':
   'editor':
     'commentStart': '<!-- '
     'commentEnd': ' -->'
+    'foldEndPattern': '^\\s*(</[^>]+>|[/%]>|-->)\\s*$'
+    'increaseIndentPattern': '^\\s*<(([^!/?]|%)(?!.+?([/%]>|</.+?>))|[%!]--\\s*$)'
+    'decreaseIndentPattern': '^\\s*(</[^>]+>|-->|--%>)'
     'completions': [
         '<analytics:reportChart>'
         '<apex:actionFunction>'
