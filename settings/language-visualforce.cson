@@ -1,5 +1,7 @@
 '.text.visualforce':
   'editor':
+    'tabLength': 4
+    'tabType': 'hard'
     'commentStart': '<!-- '
     'commentEnd': ' -->'
     'foldEndPattern': '^\\s*(</[^>]+>|[/%]>|-->)\\s*$'

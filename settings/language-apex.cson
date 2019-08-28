@@ -1,5 +1,7 @@
 '.source.apex':
   'editor':
+    'tabLength': 4
+    'tabType': 'hard'
     'commentStart': '// '
     'foldEndPattern': '^\\s*(\\}|// \\}\\}\\}$)'
     'increaseIndentPattern': '^.*\\{(\\}|[^}"\']*)$|^\\s*(public|private|protected):\\s*$'
