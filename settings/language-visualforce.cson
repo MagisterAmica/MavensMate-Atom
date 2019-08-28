@@ -1,4 +1,4 @@
-'.source.visualforce':
+'.visualforce.markup':
   'editor':
     'commentStart': '<!-- '
     'commentEnd': ' -->'
