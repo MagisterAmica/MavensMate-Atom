@@ -1947,11 +1947,11 @@ repository:
     patterns: [
       {
         name: "constant.language.boolean.true.apex"
-        match: "(?<!\\.)\\btrue\\b"
+        match: "(?i)(?<!\\.)\\btrue\\b"
       }
       {
         name: "constant.language.boolean.false.apex"
-        match: "(?<!\\.)\\bfalse\\b"
+        match: "(?i)(?<!\\.)\\bfalse\\b"
       }
     ]
   "null-literal":
