@@ -4,19 +4,19 @@
         'body': 'public with sharing class ${1:ClassName} {\n\n\tpublic ${1:ClassName}() {\n\t\t${2://constructor code}\n\t}\n}'
     'controller':
         'prefix': 'con'
-        'body': 'public with sharing class ${1:ClassName}_Controller {\n\tprivate final ${2:SObject} ${3:obj};\n\n\tpublic ${1:ClassName}_Controller(ApexPages.StandardController stdCon) {\n\t\tthis.${3:obj} = (${2:SObject})stdCon.getRecord();$4\n\t}\n}'
+        'body': 'public with sharing class ${1:ClassName}_Controller {\n\tprivate final ${2:SObject} ${3:sobj};\n\n\tpublic ${1:ClassName}_Controller(ApexPages.StandardController std_ctrl) {\n\t\tthis.${3:sobj} = (${2:SObject})std_ctrl.getRecord();$4\n\t}\n}'
     'trigger':
         'prefix': 'tri'
-        'body': 'trigger ${1:TriggerName} on ${2:SObject} (${3:events}) {\n\tfor (${2:SObject} ${4:obj} : Trigger.new) {\n\t\t${5://bulkified code}\n\t}\n}'
+        'body': 'trigger ${1:SObjectTrigger} on ${2:SObject} (${3:events}) {\n\tfor (${2:SObject} ${4:sobj} : Trigger.new) {\n\t\t${5://bulkified code}\n\t}\n}'
     'test':
         'prefix': 'test'
-        'body': '@isTest\npublic class Test_${1:ClassToTest} {\n\n\t@testSetup\n\tstatic void setup() {\n\t\t// setup code here\n\t}\n\n\t@isTest\n\tstatic void test_${2:methodToTest}() {\n\t\t$3\n\t}\n}'
+        'body': '@isTest\npublic class ${1:ClassToTest}Test {\n\n\t@testSetup\n\tstatic void setup() {\n\t\t// setup code here\n\t}\n\n\t@isTest\n\tstatic void test${2:MethodToTest}() {\n\t\t$3\n\t}\n}'
     'for':
         'prefix': 'for'
-        'body': 'for (Integer i = 0; i < ${1:SObjectList}.size(); i++) {\n\t${2:SObject} obj = ${1:SObjectList}.get(i);\n}'
+        'body': 'for (Integer i = 0; i < ${1:sobj_list}.size(); i++) {\n\t${2:SObject} sobj = ${1:sobj_list}.get(i);\n}'
     'foreach':
         'prefix': 'fore'
-        'body': 'for (${1:SObject} ${2:obj} : ${3:SObjectList}) {\n\t$4\n}'
+        'body': 'for (${1:SObject} ${2:sobj} : ${3:sobj_list}) {\n\t$4\n}'
     'add apex message':
         'prefix': 'addm'
         'body': 'ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.${1:ERROR}, \'${2:message}\'));'
@@ -28,10 +28,10 @@
         'body': 'System.assertNotEquals(${1:expected}, ${2:actual});'
     'new list':
         'prefix': 'newl'
-        'body': 'List<${1:SObject}> ${2:SObjectList} = new List<${1:SObject}>();'
+        'body': 'List<${1:SObject}> ${2:sobject_list} = new List<${1:SObject}>();'
     'new set':
         'prefix': 'news'
-        'body': 'Set<${1:SObject}> ${2:SObjectSet} = new Set<${1:SObject}>();'
+        'body': 'Set<${1:SObject}> ${2:sobject_set} = new Set<${1:SObject}>();'
     'new map':
         'prefix': 'newm'
-        'body': 'Map<${1:Id}, ${2:SObject}> ${3:sObjectMap} = new Map<${1:Id}, ${2:SObject}>();'
+        'body': 'Map<${1:Id}, ${2:SObject}> ${3:sobject_map} = new Map<${1:Id}, ${2:SObject}>();'
