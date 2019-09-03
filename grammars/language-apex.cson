@@ -1956,7 +1956,7 @@ repository:
     ]
   "null-literal":
     name: "constant.language.null.apex"
-    match: "(?<!\\.)\\bnull\\b"
+    match: "(?i)(?<!\\.)\\bnull\\b"
   "numeric-literal":
     patterns: [
       {
