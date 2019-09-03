@@ -135,9 +135,26 @@ class CompileParser extends CommandParser
     else
       panelMessages.push 'Compile Completed Successfully'
 
-    resultsArray = if @obj.success then compileResult.details.componentSuccesses else compileResult.details.componentFailures
-    if not _.isArray(resultsArray)
-      resultsArray = [resultsArray]
+    if compileResult.details.componentSuccesses
+      if not __.isArray(compileResult.details.componentSuccesses)
+        compileResult.details.componentSuccesses = [compileResult.details.componentSuccesses]
+    if compileResult.details.componentFailures
+      if not __.isArray(compileResult.details.componentFailures)
+        compileResult.details.componentFailures = [compileResult.details.componentFailures]
+    if compileResult.details.runTestResult.codeCoverageWarnings
+      if not __.isArray(compileResult.details.runTestResult.codeCoverageWarnings)
+        compileResult.details.runTestResult.codeCoverageWarnings = [compileResult.details.runTestResult.codeCoverageWarnings]
+
+    resultsArray = []
+
+    if @obj.success
+      resultsArray = resultsArray.concat(resultsArray, compileResult.details.componentSuccesses)
+    else
+      if compileResult.details.componentFailures
+        resultsArray = resultsArray.concat(resultsArray, compileResult.details.componentFailures)
+      if compileResult.details.runTestResult.codeCoverageWarnings
+        resultsArray = resultsArray.concat(resultsArray, compileResult.details.runTestResult.codeCoverageWarnings)
+
 
     for result in resultsArray
       console.log 'compile result -->'
