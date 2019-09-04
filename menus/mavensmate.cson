@@ -78,7 +78,7 @@
     'submenu': [
       { 'label': 'Open MavensMate UI', 'command': 'mavensmate:open-mavensmate-ui' },
       { 'label': 'Open Salesforce Org', 'command': 'mavensmate:open-salesforce-org' },
-      {type: 'separator'},
+      { 'type': 'separator'},
       {
         'label': 'Project'
         'submenu': [
@@ -143,12 +143,12 @@
           }
         ]
       }
-      {type: 'separator'}
+      { 'type': 'separator'}
       {
         'label': 'Deploy to Server(s)...',
         'command': 'mavensmate:deploy-to-server'
       }
-      {type: 'separator'}
+      { 'type': 'separator'}
       {
         'label': 'Settings'
         'submenu': [
