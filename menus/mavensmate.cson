@@ -1,6 +1,13 @@
 'context-menu':
-  'atom-pane[data-active-item-name*=".cls"], atom-pane[data-active-item-name*=".trigger"], atom-pane[data-active-item-name*=".page"],
-  atom-pane[data-active-item-name*=".component"], atom-pane[data-active-item-path*="aura"]': [
+  '
+  atom-pane[data-active-item-name$=".cls"],
+  atom-pane[data-active-item-name$=".trigger"],
+  atom-pane[data-active-item-name$=".page"],
+  atom-pane[data-active-item-name$=".component"],
+  atom-pane[data-active-item-name$=".resource"],
+  atom-pane[data-active-item-name$="-meta.xml"],
+  atom-pane[data-active-item-path*="aura"]
+  ': [
     {
       'label': 'MavensMate'
       'submenu': [
@@ -55,7 +62,7 @@
       ]
     }
   ]
-  '.tree-view:not(.multi-select) .file span[data-name*=".resource"]': [
+  '.tree-view:not(.multi-select) .file span[data-name$=".resource"]': [
     {
       'label': 'MavensMate'
       'submenu': [
