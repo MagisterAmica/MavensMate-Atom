@@ -449,10 +449,10 @@ repository:
         name: "punctuation.terminator.statement.apex"
   "sharing-modifier":
     name: "sharing.modifier.apex"
-    match: "(?<!\\.)\\b(with sharing|without sharing)\\b"
+    match: "(?i)(?<!\\.)\\b(with sharing|without sharing)\\b"
   "storage-modifier":
     name: "storage.modifier.apex"
-    match: "(?<!\\.)\\b(new|public|protected|private|abstract|virtual|override|global|static|final|transient|testmethod)\\b"
+    match: "(?i)(?<!\\.)\\b(new|public|protected|private|abstract|virtual|override|global|static|final|transient|testmethod|webservice)\\b"
   "class-declaration":
     begin: "(?=\\bclass\\b)"
     end: "(?<=\\})"
