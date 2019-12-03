@@ -210,6 +210,9 @@ repository:
         include: "#support-expression"
       }
       {
+        include: "#support-functions"
+      }
+      {
         include: "#throw-expression"
       }
       {
